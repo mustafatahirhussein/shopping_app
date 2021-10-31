@@ -8,6 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'Classes/cart_class.dart';
 import 'Classes/random_items.dart';
 import 'Other Stuff/app_theme.dart';
+import 'Other Stuff/route_and_message.dart';
 
 class Favorite extends StatefulWidget {
   final RandomItems product;
@@ -21,6 +22,17 @@ class Favorite extends StatefulWidget {
 class _FavoriteState extends State<Favorite> {
   @override
   Widget build(BuildContext context) {
+
+    var style = const TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+    );
+
+    var pStyle = const TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.bold,
+    );
+
     return Scaffold(
       appBar: Customized.appBar("Favorites"),
       body: fav.isNotEmpty
@@ -31,7 +43,7 @@ class _FavoriteState extends State<Favorite> {
                 return Dismissible(
                   direction: DismissDirection.endToStart,
                   key: UniqueKey(),
-                  onDismissed: (val) {
+                  onDismissed: (_) {
                     fav.removeAt(i);
                   },
                   background: Container(
@@ -52,37 +64,34 @@ class _FavoriteState extends State<Favorite> {
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(15))
                     ),
-                    // child: ListTile(
-                    //   leading: CachedNetworkImage(
-                    //     imageUrl: fav[i].image ??
-                    //         "https://www.wpclipart.com/people/faces/anonymous/photo_not_available_BW.png",
-                    //     fit: BoxFit.cover,
-                    //     height: 100,
-                    //     width: 100,
-                    //     placeholder: (context, _) =>
-                    //         AppTheme.loader(const Color(0xff0588BC)),
-                    //   ),
-                    //   title: Text(fav[i].item),
-                    //   subtitle: Text(fav[i].price),
-                    // ),
+
                     child:  Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         CachedNetworkImage(
                           imageUrl: fav[i].image ??
                               "https://www.wpclipart.com/people/faces/anonymous/photo_not_available_BW.png",
                           fit: BoxFit.cover,
-                          height: 150,
+                          height: 180,
                           width: double.infinity,
                           placeholder: (context, _) =>
                               AppTheme.loader(const Color(0xff0588BC)),
                         ),
 
-                        Text(fav[i].item),
-                        Text(fav[i].price),
-                        Text(fav[i].discount),
+                        Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: Text(fav[i].item,style: style,),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: Text(fav[i].price,style: pStyle.copyWith(color: Colors.red),),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: Text("Discount "+fav[i].discount,style: pStyle,),
+                        ),
 
-                        const Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"),
+                         Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",textAlign: TextAlign.justify,style: pStyle,),
 
                         Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -99,13 +108,15 @@ class _FavoriteState extends State<Favorite> {
                                 cartCounter++;
                               });
 
+                              RouteMsg.msg("Added to Cart successfully!");
+
 
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => AddToCart(product: widget.product)));
                             },
                             color: AppTheme.color,
-                            icon: const Text("Add to Cart"),
-                            label: const FaIcon(FontAwesomeIcons.cartPlus),
+                            icon:  Text("Add to Cart",style: pStyle.copyWith(color: Colors.white),),
+                            label: const FaIcon(FontAwesomeIcons.cartPlus,color: Colors.white,),
                           ),
                         ),
 
@@ -115,7 +126,7 @@ class _FavoriteState extends State<Favorite> {
                 );
               },
             )
-          : const Center(child: Text("No Favorites")),
+          :  Center(child: Text("No Favorites",style: style,)),
     );
   }
 }

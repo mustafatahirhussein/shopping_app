@@ -30,10 +30,9 @@ class _MyAppState extends State<MyApp> {
 
         if (snapshot.connectionState == ConnectionState.done) {
           return const MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: "Shopping App",
-            home: Splash()
-          );
+              debugShowCheckedModeBanner: false,
+              title: "Shopping App",
+              home: Splash());
         }
 
         // Otherwise, show something whilst waiting for initialization to complete

@@ -55,6 +55,16 @@ class _SearchPageState extends State<SearchPage> {
   ];
 
   Widget _buildUsersList() {
+    var style = const TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+    );
+
+    var pStyle = const TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.bold,
+    );
+
     return ListView.builder(
       itemCount: _randomItems.length,
       itemBuilder: (context, index) {
@@ -65,7 +75,14 @@ class _SearchPageState extends State<SearchPage> {
                 _randomItems[index].image,
               ),
             ),
-            title: Text(_randomItems[index].name),
+            title: Text(
+              _randomItems[index].name,
+              style: style,
+            ),
+            trailing: Text(
+              _randomItems[index].price,
+              style: pStyle.copyWith(color: Colors.red),
+            ),
           ),
           margin: const EdgeInsets.all(0.0),
         );
@@ -74,6 +91,16 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Widget _buildSearchResults() {
+    var style = const TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+    );
+
+    var pStyle = const TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.bold,
+    );
+
     return ListView.builder(
       itemCount: _searchResult.length,
       itemBuilder: (context, i) {
@@ -84,7 +111,14 @@ class _SearchPageState extends State<SearchPage> {
                 _searchResult[i].image,
               ),
             ),
-            title: Text(_searchResult[i].name),
+            title: Text(
+              _searchResult[i].name,
+              style: style,
+            ),
+            trailing: Text(
+              _searchResult[i].price,
+              style: pStyle.copyWith(color: Colors.red),
+            ),
           ),
           margin: const EdgeInsets.all(0.0),
         );

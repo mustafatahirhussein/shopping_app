@@ -41,71 +41,71 @@ class _ProfileUserState extends State<ProfileUser> {
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          content: Wrap(
-            alignment: WrapAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: AppButton(
-                  text: "Pictures",
-                  onPressed: () async {
-                    var picker = await ImagePicker()
-                        .pickImage(source: ImageSource.gallery);
+              content: Wrap(
+                alignment: WrapAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: AppButton(
+                      text: "Pictures",
+                      onPressed: () async {
+                        var picker = await ImagePicker()
+                            .pickImage(source: ImageSource.gallery);
 
-                    if (picker.path.isNotEmpty) {
-                      setState(() {
-                        image = File(picker.path);
-                      });
-                      Navigator.pop(context);
+                        if (picker.path.isNotEmpty) {
+                          setState(() {
+                            image = File(picker.path);
+                          });
+                          Navigator.pop(context);
 
-                      String fileName = path.basename(image.path);
+                          String fileName = path.basename(image.path);
 
-                      Reference firebaseStorageRef =
-                      FirebaseStorage.instance.ref().child(fileName);
+                          Reference firebaseStorageRef =
+                              FirebaseStorage.instance.ref().child(fileName);
 
-                      UploadTask uploadTask =
-                      firebaseStorageRef.putFile(image);
-                      TaskSnapshot taskSnapshot = await uploadTask;
-                      url = await firebaseStorageRef.getDownloadURL();
+                          UploadTask uploadTask =
+                              firebaseStorageRef.putFile(image);
+                          TaskSnapshot taskSnapshot = await uploadTask;
+                          url = await firebaseStorageRef.getDownloadURL();
 
-                      setState(() {});
-                    }
-                  },
-                ),
+                          setState(() {});
+                        }
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: AppButton(
+                      text: "Camera",
+                      onPressed: () async {
+                        var picker = await ImagePicker()
+                            .pickImage(source: ImageSource.camera);
+
+                        if (picker.path.isNotEmpty) {
+                          setState(() {
+                            image = File(picker.path);
+                          });
+                          Navigator.pop(context);
+
+                          String fileName = path.basename(image.path);
+
+                          Reference firebaseStorageRef =
+                              FirebaseStorage.instance.ref().child(fileName);
+
+                          UploadTask uploadTask =
+                              firebaseStorageRef.putFile(image);
+                          TaskSnapshot taskSnapshot = await uploadTask;
+                          url = await firebaseStorageRef.getDownloadURL();
+
+                          setState(() {});
+                        }
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: AppButton(
-                  text: "Camera",
-                  onPressed: () async {
-                    var picker = await ImagePicker()
-                        .pickImage(source: ImageSource.camera);
-
-                    if (picker.path.isNotEmpty) {
-                      setState(() {
-                        image = File(picker.path);
-                      });
-                      Navigator.pop(context);
-
-                      String fileName = path.basename(image.path);
-
-                      Reference firebaseStorageRef =
-                      FirebaseStorage.instance.ref().child(fileName);
-
-                      UploadTask uploadTask =
-                      firebaseStorageRef.putFile(image);
-                      TaskSnapshot taskSnapshot = await uploadTask;
-                      url = await firebaseStorageRef.getDownloadURL();
-
-                      setState(() {});
-                    }
-                  },
-                ),
-              ),
-              const SizedBox(width: 10),
-            ],
-          ),
-        ));
+            ));
   }
 
   getUserInfo(BuildContext context) async {
@@ -118,7 +118,8 @@ class _ProfileUserState extends State<ProfileUser> {
 
     if (userID != "null") {
       return StreamBuilder(
-        stream: firebaseFirestore.collection("Customers").doc(colID).snapshots(),
+        stream:
+            firebaseFirestore.collection("Customers").doc(colID).snapshots(),
         builder: (context, s) {
           if (s.data != null) {
             username.text = s.data["username"];
@@ -134,55 +135,55 @@ class _ProfileUserState extends State<ProfileUser> {
                 children: [
                   s.data["image"].isEmpty
                       ? InkWell(
-                    onTap: () {
-                      loadImage(context);
-                    },
-                    child: Container(
-                      height: 100,
-                      width: 100,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppTheme.color,
-                        border: Border.all(
-                            color: const Color(0xffffffff), width: 1),
-                      ),
-                      child: Center(
-                          child: Text(
-                            "Add \nPicture",
-                            textAlign: TextAlign.center,
-                            style: AppTheme.btnStyle,
-                          )),
-                    ),
-                  )
+                          onTap: () {
+                            loadImage(context);
+                          },
+                          child: Container(
+                            height: 100,
+                            width: 100,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: AppTheme.color,
+                              border: Border.all(
+                                  color: const Color(0xffffffff), width: 1),
+                            ),
+                            child: Center(
+                                child: Text(
+                              "Add \nPicture",
+                              textAlign: TextAlign.center,
+                              style: AppTheme.btnStyle,
+                            )),
+                          ),
+                        )
                       : image == null
-                      ? InkWell(
-                    onTap: () {
-                      loadImage(context);
-                    },
-                    child: ClipOval(
-                      child: CachedNetworkImage(
-                        imageUrl: s.data["image"],
-                        height: 100,
-                        width: 100,
-                        fit: BoxFit.cover,
-                        placeholder: (context, _) =>
-                            AppTheme.loader(const Color(0xffffffff)),
-                      ),
-                    ),
-                  )
-                      : InkWell(
-                    onTap: () {
-                      loadImage(context);
-                    },
-                    child: ClipOval(
-                      child: Image.file(
-                        image,
-                        height: 100,
-                        width: 100,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
+                          ? InkWell(
+                              onTap: () {
+                                loadImage(context);
+                              },
+                              child: ClipOval(
+                                child: CachedNetworkImage(
+                                  imageUrl: s.data["image"],
+                                  height: 100,
+                                  width: 100,
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, _) =>
+                                      AppTheme.loader(const Color(0xffffffff)),
+                                ),
+                              ),
+                            )
+                          : InkWell(
+                              onTap: () {
+                                loadImage(context);
+                              },
+                              child: ClipOval(
+                                child: Image.file(
+                                  image,
+                                  height: 100,
+                                  width: 100,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
                   const SizedBox(
                     height: 20,
                   ),
@@ -244,19 +245,17 @@ class _ProfileUserState extends State<ProfileUser> {
       );
     }
     if (userID == "null") {
-      return RouteMsg.routeAndMessage(context,
-          "Become a Member of News App by Signing Up yourself\n or Login");
+      return RouteMsg.routeAndMessage(context, "Sign Up yourself\n or Login");
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:Customized.appBar("Profile"),
+      appBar: Customized.appBar("Profile"),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-
         child: Padding(
           padding: const EdgeInsets.all(18.0),
           child: FutureBuilder(
@@ -286,7 +285,7 @@ class _ProfileUserState extends State<ProfileUser> {
       "username": username.text,
     };
 
-    firebaseFirestore.collection("Users").doc(colID).update(update);
+    firebaseFirestore.collection("Customers").doc(colID).update(update);
 
     RouteMsg.msg("Profile updated successfully!");
   }
