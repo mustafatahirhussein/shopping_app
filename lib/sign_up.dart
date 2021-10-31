@@ -141,7 +141,7 @@ class _SignUpState extends State<SignUp> {
                             width: 100,
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Color(0xff0588BC),
+                                color: const Color(0xff0588BC),
                                 border: Border.all(
                                     color: const Color(0xffffffff), width: 1)),
                             child: Center(

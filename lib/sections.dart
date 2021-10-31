@@ -4,9 +4,11 @@ import 'package:e_commerce_app/favorites.dart';
 import 'package:e_commerce_app/profile.dart';
 import 'package:e_commerce_app/search_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'Classes/count_cart.dart';
 import 'Other Stuff/app_theme.dart';
 import 'home.dart';
 
@@ -25,7 +27,7 @@ class _AppSectionState extends State<AppSection> {
     const HomePage(),
     const SearchPage(),
     const AddToCart(),
-    const Favorites(),
+    const Favorite(),
     const ProfileUser(),
     // const AboutApp(),
   ];
@@ -39,9 +41,9 @@ class _AppSectionState extends State<AppSection> {
       return Badge(
         badgeColor: AppTheme.color,
         stackFit: StackFit.loose,
-        badgeContent: const Text(
-         "0",
-          style: TextStyle(color: Color(0xffffffff)),
+        badgeContent: Text(
+          cartCounter.toString(),
+          style: const TextStyle(color: Color(0xffffffff)),
         ),
         child: const FaIcon(FontAwesomeIcons.cartPlus),
       );
@@ -60,7 +62,7 @@ class _AppSectionState extends State<AppSection> {
             index = 0;
           });
         } else {
-          Future.value(false);
+          SystemNavigator.pop(animated: true);
         }
         return null;
       },
@@ -74,7 +76,7 @@ class _AppSectionState extends State<AppSection> {
           currentIndex: index,
           type: BottomNavigationBarType.fixed,
           unselectedLabelStyle:
-          AppTheme.appBarStyle.copyWith(fontSize: 15, color: Colors.grey),
+              AppTheme.appBarStyle.copyWith(fontSize: 15, color: Colors.grey),
           selectedLabelStyle: AppTheme.appBarStyle
               .copyWith(fontSize: 15, color: AppTheme.color),
           showUnselectedLabels: false,

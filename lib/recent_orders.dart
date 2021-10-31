@@ -12,9 +12,9 @@ class _RecentOrdersState extends State<RecentOrders> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("My Recent Orders"),
+        title: const Text("My Recent Orders"),
       ),
-      body: Center(
+      body: const Center(
         child: Text("Orders"),
       ),
     );

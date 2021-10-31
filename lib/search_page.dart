@@ -1,8 +1,6 @@
 import 'package:e_commerce_app/Other%20Stuff/custom_appbar.dart';
-import 'package:e_commerce_app/Other%20Stuff/text_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'Classes/random_items.dart';
 import 'Other Stuff/app_theme.dart';
 
@@ -15,7 +13,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   final _search = TextEditingController();
-  List<RandomItems> _searchResult = [];
+  final List<RandomItems> _searchResult = [];
 
   final _randomItems = [
     RandomItems(

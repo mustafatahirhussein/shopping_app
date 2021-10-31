@@ -118,7 +118,7 @@ class _ProfileUserState extends State<ProfileUser> {
 
     if (userID != "null") {
       return StreamBuilder(
-        stream: firebaseFirestore.collection("Users").doc(colID).snapshots(),
+        stream: firebaseFirestore.collection("Customers").doc(colID).snapshots(),
         builder: (context, s) {
           if (s.data != null) {
             username.text = s.data["username"];
@@ -148,7 +148,8 @@ class _ProfileUserState extends State<ProfileUser> {
                       ),
                       child: Center(
                           child: Text(
-                            "Add Picture",
+                            "Add \nPicture",
+                            textAlign: TextAlign.center,
                             style: AppTheme.btnStyle,
                           )),
                     ),
